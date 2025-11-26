@@ -1,9 +1,6 @@
 package com.example.demo.domain.member;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +10,10 @@ import lombok.Setter;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nickname;
+    private Long id; // 회원번호
+
+    @Column(unique = true)
+    private String username; // 아이디
+    private String password; // 비밀번호
+    private String nickname; // 별명
 }

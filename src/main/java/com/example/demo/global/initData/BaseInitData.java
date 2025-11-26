@@ -30,9 +30,10 @@ public class BaseInitData {
                 Post p2 = postService.write("두번째 게시글", "두번째 게시글 내용입니다.");
                 Post p3 = postService.write("세번째 게시글", "세번째 게시글 내용입니다.");
 
-                memberService.join("user1");
-                memberService.join("user2");
-                memberService.join("user3");
+                memberService.join("user1", "1234", "유저1");
+                memberService.join("user2", "1234", "유저2");
+                memberService.join("user3", "1234", "유저3");
+
             }
         };
 

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,9 +16,17 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    public void join(String name) {
+    public void join(String username, String password, String nickname) {
+
         Member member = new Member();
-        member.setNickname(name);
+        member.setUsername(username);
+        member.setPassword(password);
+        member.setNickname(nickname);
+
         memberRepository.save(member);
+    }
+
+    public Optional<Member> findByUsername(String username) {
+        return memberRepository.findByUsername(username);
     }
 }
