@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -12,6 +13,7 @@ public class ApiV1PostController {
     private final PostService postService;
 
     @PostMapping("/api/v1/posts")
+    @ResponseBody
     public String write(String title, String content) {
         postService.write(title, content);
 
