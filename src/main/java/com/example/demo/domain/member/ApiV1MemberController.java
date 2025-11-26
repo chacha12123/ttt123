@@ -19,6 +19,10 @@ public class ApiV1MemberController {
 
         List<Member> members = memberService.list();
 
+        // 데이터를 못찾을 수 있음 -> 404
+
+        // 에러가 날 수 있음 -> 500
+
         return members;
     }
 
