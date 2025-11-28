@@ -12,11 +12,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ServiceException.class)
     @ResponseBody
-    public RsData handleException() {
+    public RsData handleException(ServiceException e) {
 
         RsData rsData = new RsData();
-        rsData.setResultCode("401");
-        rsData.setMessage("없는 회원입니다.");
+        rsData.setResultCode(e.getResultCode());
+        rsData.setMessage(e.getMessage());
         return rsData;
 
     }
