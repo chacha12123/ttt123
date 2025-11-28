@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class MemberService {
         member.setUsername(username);
         member.setPassword(password);
         member.setNickname(nickname);
+        member.setApiKey(UUID.randomUUID().toString());
 
         memberRepository.save(member);
     }

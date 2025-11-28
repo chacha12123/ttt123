@@ -16,4 +16,5 @@ public class Member {
     private String username; // 아이디
     private String password; // 비밀번호
     private String nickname; // 별명
+    private String apiKey; // API 키
 }
