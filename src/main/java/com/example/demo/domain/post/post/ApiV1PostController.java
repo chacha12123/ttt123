@@ -31,7 +31,11 @@ public class ApiV1PostController {
     @ResponseBody
     public RsData write(@RequestBody WriteReqBody writeReqBody, @RequestHeader("Authorization") String apiKey) {
 
-        Optional<Member> opMember = memberService.findByApiKey(apiKey);
+        if(apiKey.startsWith("Bearer ")) {
+            apiKey = apiKey.replace("Bearer ", "");
+        }
+
+        Optional<Member> opMember = memberService.findByApiKey(apiKey); // Bearer ac561b4d-441d-4014-9f89-dfbd8ad7aeb3
 
         if (opMember.isEmpty()) {
             throw new ServiceException("401", "잘못된 API키입니다.");
