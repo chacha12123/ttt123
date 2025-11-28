@@ -2,6 +2,7 @@ package com.example.demo.domain.post.post;
 
 import com.example.demo.domain.member.Member;
 import com.example.demo.domain.member.MemberService;
+import com.example.demo.global.exception.ServiceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,33 +23,19 @@ public class ApiV1PostController {
 
         // 우리 회원이 맞는지 체크
         Optional<Member> opMember = memberService.findByUsername(username);
-        if(opMember.isEmpty()) {
-//            return "없는 회원입니다."; // 인증 실패 - 401
 
-            RsData rsData = new RsData();
-            rsData.setResultCode("401");
-            rsData.setMessage("없는 회원입니다.");
-
-            return rsData;
+        if (opMember.isEmpty()) {
+            throw new ServiceException("401", "없는 회원입니다.");
         }
 
         Member member = opMember.get();
 
-        // 우리 회원이 맞다면 정말 그 회원이 맞는지 체크
-        if(!member.getPassword().equals(password)) {
-//            return "비밀번호가 틀렸습니다."; // 401
-
-            RsData rsData = new RsData();
-            rsData.setResultCode("401");
-            rsData.setMessage("비밀번호가 틀렸습니다.");
-
-            return rsData;
-
+        if (!member.getPassword().equals(password)) {
+            throw new ServiceException("401", "비밀번호를 틀렸습니다.");
         }
 
         postService.write(title, content);
 
-//        return username + "님의 글 작성이 완료되었습니다."; // 200
         RsData rsData = new RsData();
         rsData.setResultCode("200");
         rsData.setMessage(username + "님의 글 작성이 완료되었습니다.");
