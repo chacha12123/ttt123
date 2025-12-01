@@ -3,6 +3,7 @@ package com.example.demo.domain.member;
 import com.example.demo.domain.post.post.ApiV1PostController;
 import com.example.demo.domain.post.post.RsData;
 import com.example.demo.global.exception.ServiceException;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,21 @@ import java.util.Optional;
 public class ApiV1MemberController {
 
     private final MemberService memberService;
+    private final AuthTokenService authTokenService;
 
     @Getter
     @NoArgsConstructor
     static class LoginReqBody {
         private String username;
         private String password;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static class LoginResBody {
+        private String apiKey;
+        private String accessToken;
     }
 
     @PostMapping("/api/v1/login")
@@ -44,10 +54,15 @@ public class ApiV1MemberController {
             throw new ServiceException("401", "비밀번호를 틀렸습니다.");
         }
 
-        RsData rsData = new RsData();
+        String accessToken = authTokenService.genAccessToken(member);
+        String apiKey = member.getApiKey();
+
+        LoginResBody resBody = new LoginResBody(apiKey, accessToken);
+
+        RsData<LoginResBody> rsData = new RsData();
         rsData.setResultCode("200");
         rsData.setMessage(loginReqBody.username + "님 로그인 하셨습니다.");
-        rsData.setData(member.getApiKey());
+        rsData.setData(resBody);
 
         return rsData;
     }

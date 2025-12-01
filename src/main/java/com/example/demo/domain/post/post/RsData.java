@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class RsData {
+public class RsData<T> {
 
     private String resultCode;
     private String message;
-    private String data;
+    private T data;
 }
