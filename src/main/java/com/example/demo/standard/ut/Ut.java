@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Map;
 
 public class Ut {
+
     public static class jwt {
         public static String toString(String secret, long expireSeconds, Map<String, Object> body) {
             ClaimsBuilder claimsBuilder = Jwts.claims();
