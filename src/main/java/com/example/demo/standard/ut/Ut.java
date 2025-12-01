@@ -5,6 +5,8 @@ import io.jsonwebtoken.ClaimsBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.Map;
@@ -34,6 +36,18 @@ public class Ut {
                     .compact();
 
             return jwt;
+        }
+
+        public static Map<String, Object> payload(String jwt, String secretPattern) {
+
+            SecretKey secretKey = Keys.hmacShaKeyFor(secretPattern.getBytes(StandardCharsets.UTF_8));
+
+            return  (Map<String, Object>) Jwts
+                    .parser()
+                    .verifyWith(secretKey)
+                    .build()
+                    .parse(jwt)
+                    .getPayload();
         }
     }
 }
