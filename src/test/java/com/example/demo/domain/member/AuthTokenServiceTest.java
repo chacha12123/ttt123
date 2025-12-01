@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.crypto.SecretKey;
@@ -15,6 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class AuthTokenServiceTest {
+
+    @Autowired
+    private AuthTokenService authTokenService;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Test
     @DisplayName("jjwt 최신 방식으로 JWT 생성, {name=\"Paul\", age=23}")
@@ -39,5 +45,17 @@ public class AuthTokenServiceTest {
         assertThat(jwt).isNotBlank();
 
         System.out.println("jwt = " + jwt);
+    }
+
+    @Test
+    @DisplayName("AuthTokenService를 통해서 accessToken 생성")
+    void t4() {
+
+        Member member1 = memberRepository.findByUsername("user3").get();
+        String accessToken = authTokenService.genAccessToken(member1);
+        assertThat(accessToken).isNotBlank();
+
+        System.out.println("accessToken = " + accessToken);
+
     }
 }
