@@ -77,4 +77,6 @@ public class ApiV1MemberController {
 
     // 회원 가입 구현
 
+    
+    // user1의 기능 구현
 }
