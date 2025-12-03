@@ -85,6 +85,8 @@ public class ApiV1MemberController {
 
     // user2의 기능 구현2
 
+    // user2의 기능 구현3
+
     // user1의 기능 구현3
 
     // user1의 기능 구현4
